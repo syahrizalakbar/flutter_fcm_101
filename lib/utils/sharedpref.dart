@@ -12,7 +12,7 @@ Future<bool> persistUser(User user) async {
 Future<User> getUser() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var user = prefs.getString("user");
-  print (user);
+
   if (user != null) {
     return User.fromJson(jsonDecode(user));
   } else {

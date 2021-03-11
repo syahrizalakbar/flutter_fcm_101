@@ -28,6 +28,12 @@ class _MyTaskPageState extends State<MyTaskPage> {
               child: Text(snapshot.error.toString()),
             );
           if (snapshot.hasData) {
+            if (snapshot.data.data.length == 0) {
+              return Center(
+                child: Text("Belum ada Task"),
+              );
+            }
+
             return ListView.builder(
               itemCount: snapshot.data.data.length,
               itemBuilder: (context, index) {

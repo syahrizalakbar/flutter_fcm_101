@@ -12,23 +12,57 @@ import '../model/res_logout.dart';
 
 class Repository {
   var dio = Dio(BaseOptions(
-    baseUrl: "http://192.168.43.30/fcm101/",
-  ));
+    baseUrl: "http://172.16.0.20/fcm101/",
+  ))
+    ..interceptors.add(InterceptorsWrapper(
+      onResponse: (Response res) {
+        print("Response: ${res.data}");
+      },
+      onRequest: (RequestOptions req) {
+        print("Request: " + {
+          "method": req.method,
+          "url": req.baseUrl + req.path,
+          "data": req.data is FormData ? req.data.fields : req.data,
+          "params": req.queryParameters,
+        }.toString());
+      },
+      onError: (DioError err) {
+        print("Error: ${err.response.statusCode} - ${err.response.data}");
+      },
+    ));
 
   Future<ResLogin> login(String username, String password) async {
     Response res = await dio.post(
       "login.php",
-      data: FormData.fromMap({'username': username, 'password': password}),
+      data: FormData.fromMap({
+        'username': username,
+        'password': password,
+        'sd': password,
+        'fasdad': password,
+        's': password,
+        'asdasd': password,
+        'sdf': password,
+        'sdfsf': password,
+        'dsfsfd': password,
+        'SFDAADF': password,
+        'ASDFADSG': password,
+        'SFDDSF': password,
+        'ASGDASDGASD': password,
+        'SDFGW': password,
+        'HERH': password,
+      }),
     );
 
-    print(res.data);
     return ResLogin.fromJson(res.data);
   }
 
   Future<ResLogout> logout(int id, String deviceId) async {
     Response res = await dio.post(
       "logout.php",
-      data: FormData.fromMap({'id': id, 'device_id': deviceId}),
+      data: FormData.fromMap({
+        'id': id,
+        'device_id': deviceId,
+      }),
     );
     return ResLogout.fromJson(res.data);
   }
@@ -47,7 +81,6 @@ class Repository {
     return ResUpdateToken.fromJson(res.data);
   }
 
-
   Future<List<OtherUser>> getOtherUser(int id) async {
     Response res = await dio.post(
       "get_other_user.php",
@@ -58,7 +91,6 @@ class Repository {
 
     return resGetOtherUserFromJson(jsonEncode(res.data));
   }
-
 
   Future<ResGetTask> getTask(int id) async {
     Response res = await dio.post(
@@ -78,8 +110,7 @@ class Repository {
     return resGetJabatanFromJson(jsonEncode(res.data));
   }
 
-  Future<ResAddTask> addTask(
-      int createdBy, String title, String description,
+  Future<ResAddTask> addTask(int createdBy, String title, String description,
       {List<int> toIds = const [], List<String> toJabatan = const []}) async {
     var data = {
       'created_by': createdBy,
@@ -107,4 +138,5 @@ class Repository {
     return ResAddTask.fromJson(res.data);
   }
 }
+
 Repository repo = Repository();
