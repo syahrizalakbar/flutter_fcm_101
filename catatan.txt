@@ -1,0 +1,22 @@
+
+Konsep Aplikasi
+- Ada 3 Level user, yaitu manager, leader, dan user normal
+- Nanti Tiap user bisa membuat sebuah task baru, dan task itu bisa dikhususkan untuk user tertentu atau untuk jabatan tertentu, atau keduanya.
+- Notifikasi akan masuk ke target user yang telah dipilih pada saat membuat task
+
+Persiapan :
+- Setup Backend menggunakan php native
+- Test Running Aplikasi apakah sudah berhasil login
+- Konfigurasi Firebase project
+
+Pembahasan
+- Konfigurasi jika dibutuhkan
+- User Login dibanyak HP
+- Update Token sesuai user dan hp yang digunakan
+- Mengirim notifikasi menggunakan token dan topik melalui server
+- Menerima Notifikasi sederhana
+- Menerima notifikasi dan direct ke halaman khusus
+- Handle/Maintenance token (invalid, user hapus app, dll)
+
+
+** Code akhir ada di branch final_code

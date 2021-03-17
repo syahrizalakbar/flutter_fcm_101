@@ -58,6 +58,7 @@ class _DashboardState extends State<Dashboard> {
 
   Future<void> configureSubscription() async {
     fcm.subscribeToTopic(widget.user.jabatan);
+    fcm.requestNotificationPermissions();
     fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
@@ -205,9 +206,11 @@ class _DashboardState extends State<Dashboard> {
             textColor: Colors.white,
             onPressed: () {
               Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (c) => MyTaskPage(widget.user.id)));
+                context,
+                MaterialPageRoute(
+                  builder: (c) => MyTaskPage(widget.user.id),
+                ),
+              );
             },
           ),
         ],
